@@ -24,7 +24,7 @@ Importé el libro mediante **Obtener datos > Excel > Transformar datos**. En la 
 
 La consulta base terminó con **900 filas y 20 columnas**. Los nombres descriptivos incluyen `COD_OP` → `id_operacion`, `COD_CLI` → `id_cliente`, `F_VTA` → `fecha_venta`, `PU_VTA` → `precio_unitario` y `TOT_VTA` → `total_venta`.
 
-![Pasos aplicados y normalización de ventas_limpias](capturas/02_tipos_y_nombres.png)
+![Pasos aplicados y normalización de ventas_limpias](02_tipos_y_nombres.png)
 
 ## 2. Justificación de los tipos de datos
 
@@ -57,19 +57,19 @@ Para evitar repetir los atributos de un mismo cliente en cada transacción, cre�
 
 Contiene 9 columnas: `id_cliente`, `nombre_cliente`, `email_cliente`, `telefono_cliente`, `ciudad_cliente`, `provincia_cliente`, `segmento_cliente`, `cliente_activo` y `fecha_alta_cliente`. Seleccioné estas columnas y eliminé las demás; luego quité duplicados por `id_cliente`. **Resultado: 119 filas.**
 
-![Dimensión de clientes y pasos aplicados](capturas/03_dim_clientes.png)
+![Dimensión de clientes y pasos aplicados](03_dim_clientes.png)
 
 ### `fact_ventas`
 
 Contiene 12 columnas: `id_operacion`, `id_cliente`, `fecha_venta`, `id_producto`, `descripcion_producto`, `categoria_producto`, `cantidad`, `precio_unitario`, `descuento_pct`, `total_venta`, `moneda` y `canal_venta`. Conservé todas las operaciones depuradas: **900 filas**. No quité duplicados por `id_cliente`, porque un cliente puede realizar múltiples compras.
 
-![Tabla de ventas y pasos aplicados](capturas/04_fact_ventas.png)
+![Tabla de ventas y pasos aplicados](04_fact_ventas.png)
 
 ## 5. Relación del modelo
 
 Relacioné `fact_ventas[id_cliente]` con `dim_clientes[id_cliente]` usando cardinalidad **varios a uno (`*:1`)**, relación **activa** y filtro cruzado **único** desde clientes hacia ventas. Esto permite analizar operaciones por atributos de cliente sin duplicar los registros de la dimensión.
 
-![Relación activa entre fact_ventas y dim_clientes](capturas/05_modelo_relacional.png)
+![Relación activa entre fact_ventas y dim_clientes](05_modelo_relacional.png)
 
 ## 6. Archivos y reproducción
 
